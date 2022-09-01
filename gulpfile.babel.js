@@ -28,7 +28,7 @@ export function html() {
 }
 
 export function pug() {
-	return src('src/*.pug')
+	return src('src/pug/*.pug') // or index.pug
 		.pipe(gulpPug({
 			pretty: true,
 			// locals: DATA
@@ -50,7 +50,7 @@ export function watching() {
 	watch(['src/scss/**/*.scss'], styles);
 	watch(['src/js/**/*.js', '!src/js/main.min.js'], scripts);
 	watch(['src/html/**/*.html'], html).on('change', sync.reload);
-	watch(['src/pug/*.pug'], pug).on('change', sync.reload);
+	watch(['src/pug/**/*.pug'], pug).on('change', sync.reload);
 	watch(['src/*.html']).on('change', sync.reload);
 }
 
@@ -105,7 +105,7 @@ function building() {
 }
 
 export const build = series(cleanDist, images, building);
-export default parallel(html, pug, styles, scripts, syncing, watching);
+export default parallel(html, pug, styles, scripts, syncing, watching); // delete html or pug if needed
 
 // "optionalDependencies": {
 //   "imagemin-gifsicle": "^5.2.0",
